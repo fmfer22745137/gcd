@@ -43,6 +43,13 @@ test_case_list=(
 '100,30,10'
 '1024,768,256'
 '65535,8092,17'
+
+# 負の整数をサポートする
+# gcd(a,b)=gcd(|a|,|b|) 
+
+'-2,4,2' 
+'2,-4,2'
+'-2,-4,2'
 )
 
 for test_case in ${test_case_list[@]}; do
@@ -57,9 +64,6 @@ done
 echo -e "\n# Error test\n"
 
 test_case_list=(
-'-2,4'
-'2,-4'
-'-2,-4'
 '0.0,0'
 '100,0.0'
 '0,2.5'
@@ -74,7 +78,7 @@ test_case_list=(
 for test_case in ${test_case_list[@]}; do
   a=$(echo $test_case | cut -f1 -d,)
   b=$(echo $test_case | cut -f2 -d,)
-  expected="Parameters must be two natural numbers"
+  expected="Parameters must be two integer numbers"
   actual=$(./gcd.sh $a $b)
   assert "Tested $a $b" "$expected" "$actual" 1 $?
 done

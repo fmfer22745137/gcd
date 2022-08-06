@@ -14,8 +14,8 @@ if [[ $# != 2 ]]; then
   exit 1
 fi
 
-if [[ -z "$(echo $1 $2 | grep -P '^[0-9]+ [0-9]+$')" ]]; then
-  echo "Parameters must be two natural numbers"
+if [[ -z "$(echo $1 $2 | grep -P '^[-]*[0-9]+ [-]*[0-9]+$')" ]]; then
+  echo "Parameters must be two integer numbers"
   exit 1
 fi
 
@@ -31,8 +31,8 @@ smaller=$(( a < b ? a : b ))
 if [[ $smaller -eq 0 ]]; then
   gcd=1 # どちらかが0だった場合、GCD=1
 else
-  # aとbを一番小さい数字で割る（i）
-  # あまりがあれば、さらに小さくし、また割ってみる
+  # aとbを一番小さい方で割る（i）
+  # あまりがあれば、（iを）さらに小さくし、また割ってみる
   # あまりが無ければ、GCDとする。
   for i in $(seq 1 $smaller | sort -n -r); do
     mods=$(( (a % i) + (b % i) )) # aとbをiで割って、あまりの合計を求める
